@@ -1,6 +1,5 @@
 package exercicios.exercicio04;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -24,10 +23,7 @@ public class App {
     public static void main(String[] args) {
         int opcao, numeroConta;
         double limite, valor;
-        ArrayList<Conta> contas = new ArrayList<>();
-        ContaCorrente cc = null;
-        ContaPoupanca cp = null;
-        ContaEspecial ce = null;
+        GerenciaContas contas = new GerenciaContas();
         Scanner entrada = new Scanner(System.in);
         do{
             menu();
@@ -36,70 +32,58 @@ public class App {
                 case 1:
                     System.out.printf("\nInforme o número da conta: ");
                     numeroConta = entrada.nextInt();
-                    cc = new ContaCorrente(numeroConta,0);
-                    contas.add(cc);
+                    contas.novaContaCorrente(numeroConta);
                     break;
+
                 case 2:
                     System.out.printf("\nInforme o número da conta: ");
                     numeroConta = entrada.nextInt();
                     System.out.printf("\nInforme o limite: ");
                     limite = entrada.nextDouble();
-                    ce = new ContaEspecial(numeroConta,0,limite);
-                    contas.add(ce);  
+                    contas.novaContaEspecial(numeroConta, limite); 
                     break;
+
                 case 3:
                     System.out.printf("\nInforme o número da conta: ");
                     numeroConta = entrada.nextInt();
-                    cp = new ContaPoupanca(numeroConta,0);
-                    contas.add(cp);
+                    contas.novaContaPoupanca(numeroConta);
                     break;
+
                 case 4:
                     System.out.printf("\nInforme o número da conta: ");
                     numeroConta = entrada.nextInt();
                     System.out.printf("\nInforme o valor: R$");
                     valor = entrada.nextDouble();
-
-                    for (Conta objConta : contas) {
-                        if(objConta.getDados()[0] == numeroConta){
-                            if(objConta.deposito(valor)){
-                                System.out.println("Depósito Realizado.");
-                            }
-                            else{
-                                System.out.println("Falha na Operação."); 
-                            }
-                        }
+                    if(contas.fazerDeposito(numeroConta, valor)){
+                        System.out.println("Depósito Realizado.");
+                    }
+                    else{
+                        System.out.println("Falha na Operação."); 
                     }
                     break;
+
                 case 5:
                     System.out.printf("\nInforme o número da conta: ");
                     numeroConta = entrada.nextInt();
                     System.out.printf("\nInforme o valor: R$");
                     valor = entrada.nextDouble();
-
-                    for (Conta objConta : contas) {
-                        if(objConta.getDados()[0] == numeroConta){
-                            if(objConta.saque(valor)){
-                                System.out.println("Saque Realizado.");
-                            }
-                            else{
-                                System.out.println("Falha na Operação."); 
-                            }
-                        }
+                    if(contas.fazerSaque(numeroConta, valor)){
+                        System.out.println("Saque Realizado.");
                     }
+                    else{
+                        System.out.println("Falha na Operação."); 
+                    }                    
                     break;
+
                 case 6:
                     System.out.printf("Informe o número da conta: ");
                     numeroConta = entrada.nextInt();
                     System.out.println("");
                     System.out.println("--------------- Resumo ----------------");
-                    for (Conta objConta : contas) {
-                        if(objConta.getDados()[0] == numeroConta){
-                            System.out.println(objConta);
-                        }
-                    }
+                    System.out.println(contas.exibirSaldo(numeroConta));
                     System.out.println();
-                    
                     break;
+
                 case 7:
                     System.out.println("---------------------------------------");
                     System.out.println("Programa Encerrado com sucesso.");
@@ -111,74 +95,6 @@ public class App {
                     break;
             }
         }while (opcao !=7);
-
         entrada.close();
-
-
-
-
-
-
-
-
-
-        // Conta cc = new ContaCorrente(321332, 400);
-        // Conta ce = new ContaEspecial(542543, 0, 100);
-        // Conta cp = new ContaPoupanca(321434, 400);
-
-        // // Conta Especial //
-        // System.out.printf("\n\n------- Conta Especial -------\n\n ");
-        // menu(ce);
-        // if(ce.deposito(100)){
-        //     System.out.println("Depósito realizado com Sucesso.");
-        // }
-        // else{
-        //     System.out.println(ce);
-        // }
-        // menu(ce);
-        // if(ce.saque(150)){
-        //     System.out.println("Saque realizado com sucesso.");
-        // }
-        // else{
-        //     System.out.println("Saque negado.");
-        // }
-        // menu(ce);
-
-        // // Conta Poupança //
-        // System.out.printf("\n\n------- Conta Poupança -------\n\n ");
-        // menu(cp);
-        // if(cp.saque(300)){
-        //     System.out.println("Saque realizado com sucesso.");
-        // }
-        // else{
-        //     System.out.println("Saque negado.");
-        // }
-        // menu(cp);
-        // if(cp.deposito(300)){
-        //     System.out.println("Depósito realizado com Sucesso.");
-        // }
-        // else{
-        //     System.out.println(cp);
-        // }
-        // menu(cp);
-
-        // // Conta Corrente //
-        // System.out.printf("\n------- Conta Corrente -------\n\n ");
-        // menu(cc);
-        // if(cc.saque(300)){
-        //     System.out.println("Saque realizado com sucesso.");
-        // }
-        // else{
-        //     System.out.println("Saque negado.");
-        // }
-        // menu(cc);
-        // if(cc.deposito(300)){
-        //     System.out.println("Depósito realizado com Sucesso.");
-        // }
-        // else{
-        //     System.out.println(cc);
-        // }
-        // menu(cc);
-
     }
 }
